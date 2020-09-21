@@ -1,95 +1,74 @@
 <template>
-    <div id="app" class="page-container  md-layout-row">
-      <md-app md-waterfall md-mode="fixed-last">
-        <md-app-toolbar class="md-large md-dense md-primary">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-              <md-icon>menu</md-icon>
+  <div class="page-container">
+    <md-app>
+        <md-app-toolbar class="md-primary" md-elevation="0">
+            <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+            <md-icon>menu</md-icon>
             </md-button>
+            <span class="md-title">{{message}}</span>
+        </md-app-toolbar>
 
-            <span class="md-title"> {{ message }} </span>
-          </div>
+        <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
+            <md-toolbar class="md-transparent" md-elevation="0">
+                <span> MENU </span>
 
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button">
-              <md-icon>more_vert</md-icon>
-            </md-button>
-          </div>
-        </div>
+                <div class="md-toolbar-section-end">
+                    <md-button class="md-icon-button md-dense" @click="toggleMenu">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
 
-        <div class="md-toolbar-row">
-          <md-tabs class="md-primary">
-            <md-tab id="tab-home" md-label="Home"></md-tab>
-            <md-tab id="tab-pages" md-label="Serach"></md-tab>
-            <md-tab id="tab-posts" md-label="Status"></md-tab>
-      
-          </md-tabs>
-        </div>
-      </md-app-toolbar>
+            <md-list>
+                <md-list-item to="/">
+                    <md-icon>move_to_inbox</md-icon>
+                    <span class="md-list-item-text">Home</span>
+                </md-list-item>
 
-       <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
-        <md-toolbar class="md-transparent" md-elevation="0">
-          <span>Navigation</span>
+                <md-list-item to="/Search">
+                    <md-icon>search</md-icon>
+                    <span class="md-list-item-text">Search</span>
+                </md-list-item>
 
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
-              <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-
-        <md-list>
-          <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
-          </md-list-item>
-        </md-list>
-      </md-app-drawer>
+                <md-list-item to="/Status" exact>
+                    <md-icon>status</md-icon>
+                    <span class="md-list-item-text">Status</span>
+                </md-list-item>
+            
+            </md-list>
+        </md-app-drawer>
 
         <md-app-content>
-          <router-view></router-view>
+            <router-view></router-view>
         </md-app-content>
-      </md-app>
-    </div>
+    </md-app>
+  </div>
 </template>
 
 <script>
-
-
 export default {
-  data: () =>  ({
+  name: "PersistentMini",
+  data: () => ({
     message: "Desafio Jordan!",
-    menuVisible: false
+    menuVisible: false,
+    showNavigation: false,
+    showSidepanel: false,
   }),
   methods: {
-      toggleMenu () {
-        this.menuVisible = !this.menuVisible
-      }
-    }
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible;
+    },
+  },
 };
 </script>
 
-<style scoped>
-  .md-app {
-    max-height: 350px;
+<style lang="scss" scoped>
+    .md-app {
+    min-height: 350px;
     border: 1px solid rgba(#000, .12);
   }
+
+   // Demo purposes only
   .md-drawer {
     width: 230px;
     max-width: calc(100vw - 125px);
