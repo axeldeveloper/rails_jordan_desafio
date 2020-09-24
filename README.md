@@ -1,17 +1,43 @@
 # README
 
-## Projeto jorda 
-    * Ruby version
+# Screem
+![Screenshot](screem/vue_rails.png)
 
-    * Database creation
+![Screenshot](screem/tela1.png)
 
-    * Database initialization
+![Screenshot](screem/tela2.png)
 
-    * How to run the test suite
+![Screenshot](screem/tela3.png)
 
-    * Services (job queues, cache servers, search engines, etc.)
+![Screenshot](screem/tela4.png)
 
-    * Deployment instructions
+![Screenshot](screem/tela5.png)
+
+
+# Things you may want to cover:
+
+* Ruby version `2.5.5`
+
+* Rails version `Rails 5.2.4.3`
+
+* System dependencies  `Gemfile and packages.json`
+
+* Database  `PostgreSQL`
+
+* Database initialization `rails db:create`
+
+* Deployment instructions
+    * bundle install
+    
+    * rails db:create
+
+    * rails db:migrate
+
+    * rails db:seed
+
+    * yarn install
+
+    * rails s 
 
     * Docker 
 
@@ -22,34 +48,64 @@
     $ gem 'pg', '>= 0.18', '< 2.0' 
     $ RAILS_ENV=development rake db:create or rails db:create
     $ rails g model Blacklist cpf:string active:boolean
+    $ rails g model Searchlog cpf:string situation:string blacklist:references
     $ rails db:migrate
     $ rails db:seed
     * rails g controller api/v1/searchs
     
 
 
+
+
+
 # Routes
+  
   root 'Home#index'
+
+  url `http://localhost:3000/#/`
 
 
 
 # Front
-yarn add axios vue-axios
-yarn add vue-router
-yarn add vue-material
+
+    $  yarn add axios vue-axios
+
+    $  yarn add vue-router
+
+    $  yarn add vue-material
+    
+    $  yarn add moment
 
 # Backend
-backend: bin/rails s -p 3000
-frontend: bin/webpack-dev-server
+  
+  * backend:  $ bin/rails s -p 3000  `or` rails s 
+  
+  * frontend: $ bin/webpack-dev-server `or` rails webpack-dev-server
+  
+  * `or`
+  
+  * rails s
+
+# Docker 
+
+    $ cd ./docker/
+
+    $ docker-compose up -d
 
 
+# var in rails 
 
+Name Begins With  | $ | @ | [a-z] or _  | [A-Z] | @@  
+--- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
+ Variable Scope | A global variable | An instance variable  | A local variable  | A constant | A class variable
 
-https://web-crunch.com/posts/ruby-on-rails-api-vue-js
-https://www.agiratech.com/blog/create-application-rails-vue-js
+# git
+  - $ git init
+  - $ git config --global user.name "nome"
+  - $ git config --global user.email blabla@gmail.com
+  - $ ls .git
+  - $ git remote add origin git@github.com:codpuer/tutorial-github.git
 
-https://forum.vuejs.org/t/module-not-found-error-cant-resolve-vue-router/72779
+# Author
+![Screenshot](screem/ax.jpg)
 
-https://vuematerial.io/components/list/
-
-https://medium.com/better-programming/building-self-joins-and-triple-joins-in-ruby-on-rails-455701bf3fa7

@@ -21,19 +21,17 @@
 
       <md-table-empty-state
         md-label="No cpf found"
-        :md-description="
-          `No cpf found for this '${search}' query. Try a different search term or create a new cpf include to backlist.`
-        "
+        :md-description="`No cpf found for this '${search}' query. Try a different search term or create a new cpf include to backlist.`"
       >
-        <md-button class="md-primary md-raised" @click="newInclude">
-          Include to cpf in blacklist
+        <md-button class="md-primary md-raised" @click="NewIncludeList">
+          Include to cpf in blacklist click to plus icon in grid
         </md-button>
       </md-table-empty-state>
 
       <md-table-row
         slot="md-table-row"
         slot-scope="{ item }"
-        :class="getClass(item)"
+       
         md-selectable="single"
       >
         <md-table-cell md-label="CPF" md-sort-by="cpf" md-numeric>{{
@@ -44,19 +42,25 @@
         }}</md-table-cell>
 
         <md-table-cell md-label="Options">
-          <md-button
-            v-if="item.situation == 'FREE'"
+          <md-button v-if="item.situation == 'FREE'"
             class="md-dense md-primary"
-            @click.native="newInclude(item)"
-          >
+            @click.native="Create(item)">
             <md-icon>add</md-icon>
           </md-button>
-          <md-button class="md-accent" @click.native="exclude(item)">
+          <md-button v-if="item.situation == 'BLOCK'"
+            class="md-accent" @click.native="Delete(item)">
             <md-icon>delete</md-icon>
           </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
+
+    <md-snackbar :md-active.sync="showSnackbar" :md-persistent="true">
+        <span style="width:100%; text-align:center;">
+            {{SnackbarLabel}}
+        </span>
+    </md-snackbar> 
+
   </div>
 </template>
 
@@ -65,8 +69,9 @@ import Http from "../services/http"; // não precisa de .js
 //import {getCpfBlackList as getCPF} from "../services/search";
 
 import {
-  getCpfBlackList as getCPF,
-  update as getEsclude, 
+    getCpfBlackList as getCPF,
+    update  as DeleteBlackList,
+    include as CreateBlackList,
 } from "../services/search";
 
 import { set } from "vue";
@@ -78,47 +83,44 @@ export default {
         imputCpf: null,
         search: [],
         searchEnabled: false,
+        showSnackbar : false,
+        SnackbarLabel: ""
     }),
 
     methods: {
         getBlackList() {
-            console.log("Cpf ", this.imputCpf);
             this.search = [];
             let row = getCPF(this.imputCpf);
-            row.then((response) => {
-                console.log(response.data);
-                //this.search = response.data;
-                this.search.push(response.data);
-                //set(this, 'search' , Object.assign({}, response.data))
-                //this.$set(this, 'search', response.data);
-            });
-
-            console.log("search");
+            row.then(response => this.search.push(response.data) );
         },
 
         getClass: ({ situation }) => ({
             "md-primary": situation === "FREE",
-            "md-accent": situation === "BLOCK",
+            "md-default": situation === "BLOCK",
         }),
 
-        newInclude(item) {
-            console.log(item);
+        Create(item) {
+            let { cpf, active } = item;
+            active = true;
+            CreateBlackList({ cpf, active }).then((response) => {
+                this.SnackbarLabel = response.data.msg;
+                this.showSnackbar = true;
+                this.getBlackList()
+            }); 
         },
 
-        exclude(item) {
-            let {id , cpf , active} = item.row;
-            active = (active == true) ? false : true;
+        Delete(item) {    
+            let { id, cpf, active } = item.row;
+            active = active == true ? false : true;
+            DeleteBlackList({ id, cpf, active }).then((response) => {
+                this.SnackbarLabel = response.data.msg;
+                this.showSnackbar = true;
+                this.getBlackList()
+            });  
+        },
 
-            console.log( `id : ${id} -  cpf : ${cpf} - active : ${active}`);
-
-            //console.log(item.row);
-            getEsclude({id , cpf , active}).then((response) => {
-                console.log(response.data);
-                //this.search = response.data;
-                //this.search.push(response.data);
-                //set(this, 'search' , Object.assign({}, response.data))
-                //this.$set(this, 'search', response.data);
-            });
+        NewIncludeList ()  {
+            console.log("Novo")
         }
     },
 

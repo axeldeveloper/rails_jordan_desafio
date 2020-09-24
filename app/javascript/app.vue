@@ -10,7 +10,7 @@
 
         <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
             <md-toolbar class="md-transparent" md-elevation="0">
-                <span> MENU </span>
+                <span> <md-icon>menu</md-icon> MENU </span>
 
                 <div class="md-toolbar-section-end">
                     <md-button class="md-icon-button md-dense" @click="toggleMenu">
@@ -21,7 +21,7 @@
 
             <md-list>
                 <md-list-item to="/">
-                    <md-icon>move_to_inbox</md-icon>
+                    <md-icon>home</md-icon>
                     <span class="md-list-item-text">Home</span>
                 </md-list-item>
 
@@ -31,8 +31,13 @@
                 </md-list-item>
 
                 <md-list-item to="/Status" exact>
-                    <md-icon>status</md-icon>
+                    <md-icon>donut_small</md-icon>
                     <span class="md-list-item-text">Status</span>
+                </md-list-item>
+
+                <md-list-item to="http://localhost:3000/admin" exact>
+                    <md-icon>table_view</md-icon>
+                    <span class="md-list-item-text">Admin</span>
                 </md-list-item>
             
             </md-list>

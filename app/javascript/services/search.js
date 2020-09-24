@@ -1,8 +1,8 @@
 import Http from './http'; 
 
 
-export const include = ({ cpf, active }) => { 
-  return Http.post('/api/vi/searchs/included', { cpf, active });
+export const include = (blacklist) => { 
+  return Http.post('/api/v1/searchs/include', { blacklist });
 };
 
 // update

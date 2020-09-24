@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cpf: MyString
+  situation: MyString
+  blacklist: one
+
+two:
+  cpf: MyString
+  situation: MyString
+  blacklist: two

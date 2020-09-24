@@ -25,18 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }).$mount()
 
-  //document.body.appendChild(app.$el)
   console.log(app)
-  
-
-  /*new Vue({
-    el: '#app',
-    router,
-    components: { App },
-    template: '<App/>'
-  })*/
-
-
 
 })
 
