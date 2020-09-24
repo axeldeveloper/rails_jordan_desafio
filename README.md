@@ -95,9 +95,9 @@
 
 # var in rails 
 
-Name Begins With  | $ | @ | [a-z] or _  | [A-Z] | @@  
---- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
- Variable Scope | A global variable | An instance variable  | A local variable  | A constant | A class variable
+Name Begins With  |    $              |           @           |    [a-z] or _     | [A-Z]      | @@             | 
+----------------- | ----------------- | --------------------- | ----------------- |----------- |--------------- |
+Variable Scope    | A global variable | An instance variable  | A local variable  | A constant | A class variable
 
 # git
   - $ git init
